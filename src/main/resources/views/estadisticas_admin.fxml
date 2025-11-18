@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.syncup.app.controllers.EstadisticasAdminController"
+            prefWidth="800" prefHeight="600">
+
+    <top>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Label text="📈 Dashboard Administrativo - SyncUp"
+                   style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+        </HBox>
+    </top>
+
+    <center>
+        <TabPane prefWidth="780" prefHeight="500">
+
+            <!-- ======================= -->
+            <!-- TAB 1: Estadísticas globales -->
+            <!-- ======================= -->
+            <tabs>
+                <Tab text="Estadísticas Globales">
+                    <VBox spacing="10" alignment="CENTER">
+                        <padding>
+                            <Insets top="15" right="15" bottom="15" left="15"/>
+                        </padding>
+
+                        <TableView fx:id="tablaEstadisticasGlobales" prefWidth="700">
+                            <columns>
+                                <TableColumn fx:id="colTituloGlobal" text="Métrica" prefWidth="400"/>
+                                <TableColumn fx:id="colValorGlobal" text="Valor" prefWidth="300"/>
+                            </columns>
+                        </TableView>
+
+                        <HBox spacing="10" alignment="CENTER">
+                            <Button text="🔄 Actualizar" onAction="#handleActualizarGlobal"/>
+                            <Button text="🧹 Limpiar historial global" onAction="#handleLimpiarHistorial"/>
+                            <Button text="📤 Exportar historial" onAction="#handleExportarHistorial"/>
+                            <Button text="📊 Dashboard de Métricas" onAction="#handleAbrirDashboardCharts"/>
+                        </HBox>
+                    </VBox>
+                </Tab>
+
+                <!-- ======================= -->
+                <!-- TAB 2: Gestión de usuarios -->
+                <!-- ======================= -->
+                <Tab text="Usuarios">
+                    <VBox spacing="10" alignment="CENTER">
+                        <padding>
+                            <Insets top="15" right="15" bottom="15" left="15"/>
+                        </padding>
+
+                        <TableView fx:id="tablaUsuarios" prefWidth="700">
+                            <columns>
+                                <TableColumn fx:id="colUsuario" text="Usuario" prefWidth="200"/>
+                                <TableColumn fx:id="colNombre" text="Nombre" prefWidth="300"/>
+                                <TableColumn fx:id="colRol" text="Rol" prefWidth="200"/>
+                            </columns>
+                        </TableView>
+
+                        <HBox spacing="10" alignment="CENTER">
+                            <Button text="🗑️ Eliminar Usuario" onAction="#handleEliminarUsuario"/>
+                            <Button text="⬆️ Cambiar Rol" onAction="#handleCambiarRol"/>
+                        </HBox>
+                    </VBox>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="10">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <Button text="🔙 Volver al Panel de Usuario" onAction="#handleVolver"/>
+        </HBox>
+    </bottom>
+</BorderPane>

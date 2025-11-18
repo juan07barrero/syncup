@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.syncup.app.controllers.EstadisticasController"
+            prefWidth="600" prefHeight="400">
+
+    <top>
+        <Label text="📊 Estadísticas de Reproducción"
+               style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-padding: 15;"/>
+    </top>
+
+    <center>
+        <VBox alignment="CENTER" spacing="10">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <TableView fx:id="tablaEstadisticas" prefWidth="500" prefHeight="250">
+                <columns>
+                    <TableColumn fx:id="colTitulo" text="Métrica" prefWidth="250"/>
+                    <TableColumn fx:id="colValor" text="Valor" prefWidth="250"/>
+                </columns>
+            </TableView>
+
+            <Button text="Actualizar"
+                    onAction="#handleActualizar"
+                    style="-fx-font-size: 14px; -fx-padding: 8 16;"/>
+
+            <Button text="Volver al Panel"
+                    onAction="#handleVolver"
+                    style="-fx-font-size: 14px; -fx-padding: 8 16;"/>
+        </VBox>
+    </center>
+
+</BorderPane>

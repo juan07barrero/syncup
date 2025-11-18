@@ -1,0 +1,83 @@
+/* 🎧 Estilo general tipo Spotify */
+.root {
+    -fx-background-color: #121212;
+    -fx-text-fill: white;
+    -fx-font-family: 'Segoe UI', sans-serif;
+}
+
+/* 🔠 Títulos y etiquetas */
+.label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+}
+
+/* 🔲 Cuadros de texto */
+.text-field {
+    -fx-background-color: #2a2a2a;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #888888;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: transparent;
+}
+
+/* 🧮 Tabla */
+.table-view {
+    -fx-background-color: #1e1e1e;
+    -fx-control-inner-background: #1e1e1e;
+    -fx-table-cell-border-color: #2a2a2a;
+    -fx-text-background-color: white;
+}
+
+.table-column {
+    -fx-text-fill: white;
+}
+
+/* 🟩 Botones tipo Spotify */
+.button {
+    -fx-background-color: #1DB954;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 25;
+    -fx-cursor: hand;
+    -fx-padding: 6 18;
+    -fx-font-size: 13px;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.3), 2, 0.0, 0, 1);
+}
+
+.button:hover {
+    -fx-background-color: #1ed760;
+}
+
+.button:pressed {
+    -fx-background-color: #169c46;
+}
+
+/* 🎚️ Slider de progreso */
+.slider {
+    -fx-control-inner-background: #2a2a2a;
+}
+
+.slider .track {
+    -fx-background-color: #333333;
+}
+
+.slider .thumb {
+    -fx-background-color: #1DB954;
+    -fx-background-radius: 50%;
+}
+
+.slider .track {
+    -fx-background-radius: 4;
+}
+
+.slider .fill {
+    -fx-background-color: #1DB954;
+    -fx-background-radius: 4;
+}
+
+/* 📱 Barra inferior (tiempo) */
+#lblTiempo {
+    -fx-text-fill: #b3b3b3;
+    -fx-font-size: 12px;
+}

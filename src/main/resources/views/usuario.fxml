@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml"
+    fx:controller="com.syncup.app.controllers.UsuarioController">
+
+    <!-- ============ TOP BAR ============ -->
+    <top>
+        <HBox spacing="12" alignment="CENTER_LEFT" styleClass="topbar">
+            <padding>
+                <Insets top="8" right="12" bottom="8" left="12" />
+            </padding>
+
+            <Label text="♪  SyncUp" styleClass="brand" />
+
+            <Button text="📚 Biblioteca" onAction="#mostrarBiblioteca" styleClass="topbar-btn" />
+            <Button text="📁 Playlists" onAction="#mostrarPlaylists" styleClass="topbar-btn" />
+            <Button text="👥 Social" onAction="#mostrarSocial" styleClass="topbar-btn" />
+            <Button text="Editar Perfil" onAction="#abrirEditarPerfil"/>
+            <Button text="📊 Estadísticas" onAction="#handleAbrirEstadisticas"
+            
+                styleClass="topbar-btn" />
+
+            <!-- Sólo visible para admin; el controlador lo oculta para otros -->
+            <Button fx:id="btnAdminDashboard"
+                text="📈 Admin Dashboard"
+                onAction="#handleAbrirEstadisticasAdmin"
+                styleClass="topbar-btn" />
+
+            <Pane HBox.hgrow="ALWAYS" />
+            <Button text="⏻ Cerrar sesión" onAction="#handleLogout" styleClass="danger" />
+        </HBox>
+    </top>
+
+    <!-- ============ CONTENIDO CENTRAL (StackPane con 2 paneles) ============ -->
+    <center>
+        <StackPane fx:id="panelPrincipal">
+
+            <!-- ===== Panel BIBLIOTECA ===== -->
+            <AnchorPane fx:id="panelBiblioteca">
+                <VBox spacing="12" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
+                    AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0">
+                    <padding>
+                        <Insets top="12" right="12" bottom="12" left="12" />
+                    </padding>
+
+                    <!-- Buscador -->
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <TextField fx:id="txtBuscar" promptText="Buscar canción..."
+                            HBox.hgrow="ALWAYS" />
+                        <Button text="Buscar" onAction="#handleBuscar" />
+                    </HBox>
+                    <!-- Lista de sugerencias de autocompletado -->
+                    <ListView fx:id="listaSugerenciasBusqueda"
+                        visible="false" managed="false"
+                        maxHeight="120"
+                        style="-fx-background-color: #1e1e1e;
+                 -fx-control-inner-background: #1e1e1e;
+                 -fx-text-fill: white;" />
+
+
+                    <!-- Tabla de canciones -->
+                    <!-- Biblioteca + Recomendadas -->
+                    <SplitPane dividerPositions="0.7">
+                        <!-- Tabla de canciones -->
+                        <TableView fx:id="tablaCanciones" VBox.vgrow="ALWAYS"
+                            style="-fx-background-color: #111; -fx-control-inner-background: #181818;">
+                            <columns>
+                                <TableColumn fx:id="colTitulo" text="Título" prefWidth="320" />
+                                <TableColumn fx:id="colArtista" text="Artista" prefWidth="260" />
+                                <TableColumn fx:id="colGenero" text="Género" prefWidth="160" />
+                            </columns>
+                        </TableView>
+
+                        <!-- Panel de recomendaciones -->
+                        <VBox spacing="8" style="-fx-background-color: #111;">
+                            <padding>
+                                <Insets top="10" right="10" bottom="10" left="10" />
+                            </padding>
+
+                            <Label text="Recomendado para ti" styleClass="section-subtitle" />
+
+                            <ListView fx:id="listaRecomendadas"
+                                VBox.vgrow="ALWAYS"
+                                style="-fx-control-inner-background: #181818; -fx-background-color: #181818;" />
+                        </VBox>
+                    </SplitPane>
+
+
+                    <!-- Alta / baja de canciones (sólo admin) -->
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <TextField fx:id="txtTituloNuevo" promptText="Título" prefWidth="200" />
+                        <TextField fx:id="txtArtistaNuevo" promptText="Artista" prefWidth="200" />
+                        <TextField fx:id="txtGeneroNuevo" promptText="Género" prefWidth="160" />
+                        <Button fx:id="btnAgregar" text="Agregar" onAction="#handleAgregar" />
+                        <Button fx:id="btnEliminar" text="Eliminar" onAction="#handleEliminar"
+                            styleClass="danger" />
+                    </HBox>
+
+                    <!-- Controles -->
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <Button text="⏮️ Anterior" onAction="#handleAnterior" />
+                        <Button text="▶ Reproducir Seleccionada"
+                            onAction="#handleReproducirSeleccionada" />
+                        <Button text="⏯️ Pausa / Reanudar" onAction="#handlePausa" />
+                        <Button text="⏭️ Siguiente" onAction="#handleSiguiente" />
+                        <Button text="📻 Radio recomendada" onAction="#handleRadioRecomendada" />
+
+                        <Separator orientation="VERTICAL" />
+
+                        <Button text="★ Favorito" onAction="#handleToggleFavorito" />
+                        <Button text="🎧 Reproducir Favoritos" onAction="#handleReproducirFavoritos" />
+                        <Button text="📻 Radio personalizada" onAction="#handleIniciarRadio" />
+
+                        <Separator orientation="VERTICAL" />
+
+                        <Button text="➕ Agregar a Playlist" onAction="#handleAgregarAPlaylist" />
+                    </HBox>
+
+                    <!-- Progreso -->
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Progreso:" />
+                        <Slider fx:id="sliderProgreso" prefWidth="420" />
+                        <Label fx:id="lblTiempo" text="00:00 / 00:00" />
+                        <Pane HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lblNowPlaying" text="—" styleClass="nowplaying" />
+                    </HBox>
+
+                    <!-- Crear playlist rápida -->
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <TextField fx:id="txtNombrePlaylist" promptText="Nombre de playlist"
+                            prefWidth="240" />
+                        <Button text="➕ Crear" onAction="#handleCrearPlaylist"
+                            styleClass="success" />
+                    </HBox>
+                </VBox>
+            </AnchorPane>
+
+            <!-- ===== Panel PLAYLISTS ===== -->
+            <AnchorPane fx:id="panelPlaylists" visible="false" managed="false">
+                <VBox spacing="15" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
+                    AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0">
+
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20" />
+                    </padding>
+
+                    <Label text="🎵 Tus Playlists" styleClass="section-title" />
+
+                    <ListView fx:id="listaPlaylists" VBox.vgrow="ALWAYS" styleClass="list-view" />
+
+                    <HBox spacing="10">
+                        <Button text="▶ Reproducir" onAction="#handleReproducirPlaylist"
+                            styleClass="accent-btn" />
+                        <Button text="🗑 Eliminar" onAction="#handleEliminarPlaylist"
+                            styleClass="danger" />
+                    </HBox>
+
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <TextField fx:id="txtNombrePlaylist2" promptText="Nombre de la playlist"
+                            prefWidth="240" />
+                        <Button text="➕ Crear" onAction="#handleCrearPlaylist"
+                            styleClass="accent-btn" />
+                    </HBox>
+
+                    <Button text="← Volver a Biblioteca" onAction="#mostrarBiblioteca"
+                        styleClass="topbar-btn" />
+
+                </VBox>
+            </AnchorPane>
+
+            <!-- ===== Panel SOCIAL ===== -->
+            <AnchorPane fx:id="panelSocial" visible="false" managed="false">
+                <VBox spacing="12" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
+                    AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0">
+
+                    <padding>
+                        <Insets top="12" right="12" bottom="12" left="12" />
+                    </padding>
+
+                    <Label text="Conecta con otros usuarios" styleClass="section-title" />
+
+                    <!-- Buscar usuarios -->
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <TextField fx:id="txtBuscarUsuario"
+                            promptText="Buscar usuarios por nombre o usuario..."
+                            HBox.hgrow="ALWAYS" />
+                        <Button text="Buscar" onAction="#handleBuscarUsuario" />
+                    </HBox>
+
+                    <!-- CONTENEDOR SOCIAL -->
+                    <SplitPane dividerPositions="0.33,0.66" style="-fx-background-color: #111;">
+
+                        <!-- ===== RESULTADOS ===== -->
+                        <VBox spacing="6" style="-fx-background-color: #111;">
+                            <Label text="Resultados" styleClass="social-header" />
+                            <ListView fx:id="listaResultadosUsuarios"
+                                style="-fx-control-inner-background: #181818; -fx-background-color: #181818;"
+                                VBox.vgrow="ALWAYS" />
+                        </VBox>
+
+                        <!-- ===== SEGUIDOS ===== -->
+                        <VBox spacing="6" style="-fx-background-color: #111;">
+                            <Label text="Usuarios que sigues" styleClass="social-header" />
+                            <ListView fx:id="listaSeguidos"
+                                style="-fx-control-inner-background: #181818; -fx-background-color: #181818;"
+                                VBox.vgrow="ALWAYS" />
+                        </VBox>
+
+                        <!-- ===== SUGERENCIAS ===== -->
+                        <VBox spacing="6" style="-fx-background-color: #111;">
+                            <Label text="Sugerencias para ti" styleClass="social-header" />
+                            <ListView fx:id="listaSugerencias"
+                                style="-fx-control-inner-background: #181818; -fx-background-color: #181818;"
+                                VBox.vgrow="ALWAYS" />
+                        </VBox>
+
+                    </SplitPane>
+
+                    <!-- Botones -->
+                    <HBox spacing="8" alignment="CENTER_RIGHT">
+                        <Button text="➕ Seguir seleccionado" onAction="#handleSeguirUsuario" />
+                        <Button text="✖ Dejar de seguir" onAction="#handleDejarSeguirUsuario"
+                            styleClass="danger" />
+                        <Pane HBox.hgrow="ALWAYS" />
+                        <Button text="🔄 Actualizar" onAction="#handleActualizarSocial" />
+                        <Button text="← Volver a Biblioteca" onAction="#mostrarBiblioteca" />
+                    </HBox>
+
+                </VBox>
+            </AnchorPane>
+
+
+        </StackPane>
+    </center>
+
+
+</BorderPane>

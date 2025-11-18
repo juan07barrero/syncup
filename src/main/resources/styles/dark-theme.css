@@ -1,0 +1,255 @@
+.root {
+    -fx-background-color: #121212;
+    -fx-text-fill: #ffffff;
+}
+
+.table-view {
+    -fx-background-color: #181818;
+    -fx-border-color: #222;
+    -fx-border-width: 1;
+    -fx-text-background-color: white;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #202020;
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: #181818;
+    -fx-text-fill: #ddd;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #1db954; /* Verde Spotify */
+    -fx-text-fill: black;
+}
+
+.text-field, .combo-box, .list-view {
+    -fx-background-color: #222;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #777;
+    -fx-border-color: #333;
+}
+
+.button {
+    -fx-background-radius: 5;
+    -fx-background-color: #1db954;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #1ed760;
+}
+
+.slider .track {
+    -fx-background-color: #333;
+}
+
+.slider .thumb {
+    -fx-background-color: #1db954;
+}
+
+.label {
+    -fx-text-fill: white;
+}
+
+.list-view {
+    -fx-background-color: #181818;
+    -fx-text-fill: #fff;
+}
+
+.list-cell:selected {
+    -fx-background-color: #1db954;
+    -fx-text-fill: #000;
+}
+
+#lblNowPlaying {
+    -fx-text-fill: #1db954;
+    -fx-font-weight: bold;
+}
+
+/* ----- CABECERAS DE TABLA (TableView) ----- */
+.table-view .column-header-background {
+    -fx-background-color: #1e1e1e; /* Fondo oscuro */
+}
+
+.table-view .column-header,
+.table-view .column-header .label {
+    -fx-background-color: transparent;
+    -fx-text-fill: #e8e8e8; /* Texto claro */
+    -fx-font-weight: bold;
+}
+
+.table-view {
+    -fx-background-color: #121212;
+    -fx-control-inner-background: #121212;
+    -fx-table-cell-border-color: #2a2a2a;
+    -fx-table-header-border-color: #2a2a2a;
+}
+
+.table-row-cell {
+    -fx-background-color: #121212;
+    -fx-text-fill: #ffffff;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #2e7d32; /* Verde elegante */
+    -fx-text-fill: #ffffff;
+}
+
+/* ----- LISTVIEW OSCURO ----- */
+.list-view {
+    -fx-background-color: #121212;
+    -fx-control-inner-background: #121212;
+    -fx-text-fill: #e8e8e8;
+    -fx-background-insets: 0;
+    -fx-padding: 4;
+}
+
+.list-cell {
+    -fx-background-color: #121212;
+    -fx-text-fill: #e8e8e8;
+}
+
+.list-cell:hover {
+    -fx-background-color: #1f1f1f;
+}
+
+.list-cell:selected {
+    -fx-background-color: #2e7d32; /* Verde premium */
+    -fx-text-fill: white;
+}
+
+.social-header {
+    -fx-background-color: #121212;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 6 10;
+    -fx-border-color: #2a2a2a;
+    -fx-border-width: 0 0 1 0;
+}
+
+.social-header {
+    -fx-background-color: #202020;
+    -fx-padding: 6 8;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.split-pane:horizontal > .split-pane-divider {
+    -fx-background-color: #222;
+}
+
+.split-pane:vertical > .split-pane-divider {
+    -fx-background-color: #222;
+}
+
+/* ===== TABLEVIEW OSCURO ===== */
+
+/* Fondo del TableView */
+.table-view {
+    -fx-background-color: #121212;
+}
+
+/* Fondo interno */
+.table-view .virtual-flow .clipped-container .sheet {
+    -fx-background-color: #121212;
+}
+
+/* Filas */
+.table-row-cell {
+    -fx-background-color: #121212;
+    -fx-text-fill: white;
+}
+
+.table-row-cell:filled:selected {
+    -fx-background-color: #1e5631;
+    -fx-text-fill: white;
+}
+
+/* Column headers */
+.table-view .column-header-background {
+    -fx-background-color: #222222;
+}
+
+.table-view .column-header,
+.table-view .column-header .label {
+    -fx-background-color: #222222;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* ===== SCROLLBARS ===== */
+.scroll-bar:vertical,
+.scroll-bar:horizontal {
+    -fx-background-color: #121212;
+}
+
+.scroll-bar .track {
+    -fx-background-color: #121212;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #333333;
+    -fx-background-radius: 4;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #555555;
+}
+/* ===== ELIMINAR LA FRANJA BLANCA AL FINAL DE LA TABLA ===== */
+.table-view .filler {
+    -fx-background-color: #121212; /* mismo color del fondo */
+}
+
+/* También aplica a algunos estilos alternos de JavaFX */
+.table-view .column-header-background .filler {
+    -fx-background-color: #121212;
+}
+
+/* Forzar que no quede ningún espacio claro */
+.table-view .column-header-background {
+    -fx-background-color: #222222;
+}
+
+.table-view .column-header {
+    -fx-background-color: #222222;
+}
+
+.pane-perfil {
+    -fx-background-color: #121212;
+    -fx-padding: 20;
+    -fx-spacing: 15;
+    -fx-alignment: center;
+    -fx-background-radius: 10;
+}
+
+.perfil-field {
+    -fx-background-color: #222;
+    -fx-border-color: #333;
+    -fx-text-fill: white;
+    -fx-padding: 8;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+}
+
+.perfil-title {
+    -fx-text-fill: white;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
+.btn-perfil {
+    -fx-background-color: #1db954;
+    -fx-text-fill: white;
+    -fx-padding: 10 25;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.btn-perfil:hover {
+    -fx-background-color: #1ed760;
+}

@@ -1,0 +1,375 @@
+@startuml
+skinparam backgroundColor #121212
+skinparam classBackgroundColor #1e1e1e
+skinparam classBorderColor #2e7d32
+skinparam classFontColor white
+skinparam arrowColor #1db954
+skinparam fontColor white
+
+title SyncUp - Diagrama UML Completo (Actualizado)
+
+' ===========================
+'       PUNTO DE ENTRADA
+' ===========================
+
+class Main {
+  + start(Stage)
+  + main(String[])
+}
+
+' ===========================
+'         MODELO
+' ===========================
+
+class Usuario {
+  - username : String
+  - password : String
+  - nombre : String
+  - rol : String
+  + getUsername() : String
+  + getPassword() : String
+  + getNombre() : String
+  + getRol() : String
+  + setUsername(String)
+  + setPassword(String)
+  + setNombre(String)
+  + setRol(String)
+  + equals(Object) : boolean
+  + hashCode() : int
+  + toString() : String
+}
+
+class Cancion {
+  - id : String
+  - titulo : String
+  - artista : String
+  - genero : String
+  - anio : int
+  - duracion : int
+  + getId() : String
+  + getTitulo() : String
+  + getArtista() : String
+  + getGenero() : String
+  + getAnio() : int
+  + getDuracion() : int
+  + setId(String)
+  + setTitulo(String)
+  + setArtista(String)
+  + setGenero(String)
+  + setAnio(int)
+  + setDuracion(int)
+  + equals(Object) : boolean
+  + hashCode() : int
+  + toString() : String
+}
+
+class BibliotecaMusical {
+  - canciones : ListaCanciones
+  - trie : Trie
+  - bkTree : BKTree
+  - arbolSimilitud : ArbolSimilitud
+  + cargarDesdeCSV()
+  + agregarCancion(Cancion)
+  + eliminarCancion(String)
+  + eliminarCancion(Cancion)
+  + obtenerTodas() : List<Cancion>
+  + reconstruirTrie()
+  + recomendarSimilares(Cancion, int, int) : List<Cancion>
+  + autocompletar(String) : List<String>
+  + buscarPorTitulo(String) : Cancion
+  + guardarEnCSV()
+  + imprimirBiblioteca()
+}
+
+class ListaCanciones {
+  - lista : List<Cancion>
+  + agregarAlFinal(Cancion)
+  + eliminarPorTitulo(String)
+  + buscarPorTitulo(String) : Cancion
+  + obtenerPorIndice(int) : Cancion
+  + getTamaño() : int
+  + imprimirLista()
+}
+
+' ===========================
+'       ESTRUCTURAS DE DATOS
+' ===========================
+
+class Trie {
+  - raiz : Nodo
+  + insertar(String, String)
+  + buscarPorPrefijo(String) : List<String>
+  + clear()
+}
+
+class BKTree {
+  - raiz : Nodo
+  + insertar(String, String)
+  + buscarSimilares(String, int) : List<String>
+  + limpiar()
+  - distanciaLevenshtein(String, String) : int
+}
+
+class ArbolSimilitud {
+  - generos : Map<String, NodoGenero>
+  + insertar(Cancion)
+  + recomendar(Cancion, int) : List<Cancion>
+}
+
+' ===========================
+'         MANAGERS
+' ===========================
+
+class UsuarioManager {
+  - usuarios : Map<String, Usuario>
+  + cargarUsuarios()
+  + guardarUsuarios()
+  + validarCredenciales(String, String) : boolean
+  + registrarUsuario(String, String, String, String) : boolean
+  + getUsuario(String) : Usuario
+  + obtenerUsuarios() : List<Usuario>
+  + obtenerTodos() : Map<String, Usuario>
+  + eliminarUsuario(String) : boolean
+  + cambiarRol(String, String) : boolean
+  + actualizarPerfil(Usuario)
+}
+
+class FavoritosManager {
+  - favoritosPorUsuario : Map<String, Set<String>>
+  + toggleFavorito(String, Cancion) : boolean
+  + guardarFavoritosDe(String)
+  + cargarFavoritos(String)
+  + cargarFavoritosDeUsuario(String)
+  + obtenerFavoritos(String) : List<Cancion>
+  + obtenerTodos() : Map<String, Set<String>>
+}
+
+class PlaylistManager {
+  - playlistsPorUsuario : Map<String, Map<String, List<Cancion>>>
+  + getPlaylistsDe(String) : Map<String, List<Cancion>>
+  + crearPlaylist(String, String) : boolean
+  + agregarCancion(String, String, Cancion) : boolean
+  + agregarCancion(String, String, String) : boolean
+  + eliminarPlaylist(String, String) : boolean
+  + eliminarTodoUsuario(String)
+  + cargarPlaylists(String)
+  + guardarPlaylistsDe(String)
+  + guardarTodas()
+  + obtenerTitulosDePlaylist(String, String) : List<String>
+  + listarPlaylists(String) : List<String>
+}
+
+class HistorialManager {
+  - historial : List<String[]>
+  + cargarHistorialCSV()
+  + guardarHistorialCSV()
+  + registrarReproduccion(String, String)
+  + obtenerHistorial() : List<String[]>
+  + obtenerHistorialUsuario(String) : List<String[]>
+  + obtenerHistorialAgrupadoPorUsuario() : Map<String, List<String[]>>
+  + obtenerTotalReproducciones() : int
+  + obtenerCancionMasReproducida() : String
+  + obtenerGeneroMasReproducido() : String
+  + obtenerPromedioReproduccionesPorDia() : double
+  + obtenerCancionMasReproducidaUsuario(String) : String
+  + obtenerGeneroMasReproducidoUsuario(String) : String
+  + conteoPorCancion() : Map<String, Long>
+  + conteoPorGenero() : Map<String, Long>
+  + eliminarHistorialUsuario(String)
+  + limpiarHistorialGlobal()
+  + exportarHistorialPorUsuario()
+  + getReproduccionesPorGenero() : Map<String, Integer>
+  + getReproduccionesPorCancion() : Map<String, Integer>
+  + getReproduccionesPorArtista() : Map<String, Integer>
+}
+
+class GrafoSocial {
+  - siguiendo : Map<String, Set<String>>
+  + seguir(String, String) : boolean
+  + dejarDeSeguir(String, String) : boolean
+  + obtenerSeguidos(String) : List<String>
+  + sugerirUsuarios(String, int) : List<String>
+  + cargarSeguidos(String)
+  + guardarSeguidos(String)
+}
+
+' ===========================
+'      RECOMENDADORES
+' ===========================
+
+class Recomendador {
+  - biblioteca : BibliotecaMusical
+  - favoritosManager : FavoritosManager
+  + recomendarParaUsuario(String, int) : List<Cancion>
+}
+
+class RecomendadorMusical {
+  - historialManager : HistorialManager
+  - biblioteca : BibliotecaMusical
+  + generarRecomendaciones(String) : List<Cancion>
+  + obtenerRecomendacionesGenerales() : List<Cancion>
+}
+
+' ===========================
+'     ESTADÍSTICAS
+' ===========================
+
+class EstadisticasGlobales {
+  - historialManager : HistorialManager
+  + obtenerReproduccionesPorGenero() : Map<String, Integer>
+  + obtenerReproduccionesPorCancion() : Map<String, Integer>
+  + obtenerTopCanciones(int) : List<Map.Entry<String, Integer>>
+  + obtenerTopGeneros(int) : List<Map.Entry<String, Integer>>
+  + obtenerCantidadCancionesDistintas() : int
+  + obtenerCantidadGenerosDistintos() : int
+  + obtenerPorcentajePorGenero() : Map<String, Double>
+}
+
+' ===========================
+'       DATASTORE (SINGLETON)
+' ===========================
+
+class DataStore {
+  - instance : DataStore
+  - usuarioManager : UsuarioManager
+  - favoritosManager : FavoritosManager
+  - playlistManager : PlaylistManager
+  - historialManager : HistorialManager
+  - biblioteca : BibliotecaMusical
+  - recomendador : Recomendador
+  - recomendadorMusical : RecomendadorMusical
+  - estadisticasGlobales : EstadisticasGlobales
+  - grafoSocial : GrafoSocial
+  - usuarioActivo : String
+  + {static} getInstance() : DataStore
+  + getUsuarioManager() : UsuarioManager
+  + getFavoritos() : FavoritosManager
+  + getPlaylists() : PlaylistManager
+  + getHistorial() : HistorialManager
+  + getBiblioteca() : BibliotecaMusical
+  + getRecomendador() : Recomendador
+  + getRecomendadorMusical() : RecomendadorMusical
+  + getEstadisticasGlobales() : EstadisticasGlobales
+  + getGrafoSocial() : GrafoSocial
+  + getUsuarioActivo() : String
+  + setUsuarioActivo(String)
+  + getRolUsuarioActivo() : String
+  + getUsuarioActivoObj() : Usuario
+  + validarUsuario(String, String) : boolean
+  + registrarUsuario(String, String, String, String) : boolean
+  + obtenerUsuarios() : List<Usuario>
+  + guardarTodo()
+}
+
+' ===========================
+'       CONTROLADORES
+' ===========================
+
+class LoginController {
+  + handleLogin()
+  + handleRegister()
+  + initialize()
+}
+
+class UsuarioController {
+  - mediaPlayer : MediaPlayer
+  - listaObservable : ObservableList<Cancion>
+  + initialize()
+  + handleReproducirSeleccionada()
+  + handleToggleFavorito()
+  + handleCrearPlaylist()
+  + handleReproducirPlaylist()
+  + handleIniciarRadio()
+  + mostrarBiblioteca()
+  + mostrarPlaylists()
+  + mostrarSocial()
+  + handleSeguirUsuario()
+  + handleDejarDeSeguir()
+}
+
+class EstadisticasController {
+  + initialize()
+  + handleActualizar()
+  + handleVolver()
+}
+
+class EstadisticasAdminController {
+  + initialize()
+  + handleActualizarGlobal()
+  + handleEliminarUsuario()
+  + handleLimpiarHistorial()
+  + handleExportarHistorial()
+  + handleVolver()
+}
+
+class DashboardChartsController {
+  + initialize()
+  + cargarGeneros()
+  + cargarArtistas()
+  + cargarCanciones()
+  + handleVolver()
+}
+
+class EditarPerfilController {
+  + initialize()
+  + handleGuardar()
+  + handleCancelar()
+}
+
+' ===========================
+'        RELACIONES
+' ===========================
+
+' --- Main → DataStore/Controladores ---
+Main --> LoginController
+
+' --- Modelo ---
+BibliotecaMusical "1" *-- "many" Cancion
+BibliotecaMusical "1" *-- "1" ListaCanciones
+UsuarioManager "1" *-- "many" Usuario
+
+' --- Estructuras de datos ---
+BibliotecaMusical --> Trie
+BibliotecaMusical --> BKTree
+BibliotecaMusical --> ArbolSimilitud
+
+' --- DataStore (Singleton centralizado) ---
+DataStore "1" o-- "1" UsuarioManager
+DataStore "1" o-- "1" FavoritosManager
+DataStore "1" o-- "1" PlaylistManager
+DataStore "1" o-- "1" HistorialManager
+DataStore "1" o-- "1" BibliotecaMusical
+DataStore "1" o-- "1" GrafoSocial
+DataStore "1" o-- "1" Recomendador
+DataStore "1" o-- "1" RecomendadorMusical
+DataStore "1" o-- "1" EstadisticasGlobales
+
+' --- Recomendadores ---
+Recomendador --> BibliotecaMusical
+Recomendador --> FavoritosManager
+RecomendadorMusical --> HistorialManager
+RecomendadorMusical --> BibliotecaMusical
+
+' --- Estadísticas ---
+EstadisticasGlobales --> HistorialManager
+
+' --- Controladores → DataStore ---
+LoginController --> DataStore
+UsuarioController --> DataStore
+EstadisticasController --> DataStore
+EstadisticasAdminController --> DataStore
+DashboardChartsController --> DataStore
+EditarPerfilController --> DataStore
+
+' --- Controladores → Managers (acceso indirecto vía DataStore) ---
+UsuarioController ..> BibliotecaMusical
+UsuarioController ..> HistorialManager
+UsuarioController ..> FavoritosManager
+UsuarioController ..> PlaylistManager
+UsuarioController ..> Recomendador
+UsuarioController ..> GrafoSocial
+
+EstadisticasAdminController ..> EstadisticasGlobales
+DashboardChartsController ..> EstadisticasGlobales
+
+@enduml

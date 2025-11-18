@@ -1,0 +1,30 @@
+# Maven
+target/
+*.jar
+*.war
+*.zip
+*.tar.gz
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Java
+*.class
+*.log
+
+# Build
+dist/
+build/
+
+# Test coverage
+coverage/
+*.coverage
+
+# Environment
+.env
+.env.local

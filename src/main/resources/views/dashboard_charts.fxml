@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.chart.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.syncup.app.controllers.DashboardChartsController"
+            style="-fx-background-color: #121212;">
+
+    <top>
+        <VBox spacing="10" style="-fx-background-color: #181818; -fx-padding: 15;">
+            
+            <Label text="📊 Dashboard de Métricas"
+                   style="-fx-text-fill: white; -fx-font-size: 22; -fx-font-weight: bold;"/>
+
+            <!-- FILTROS -->
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                
+                <Label text="Usuario:" style="-fx-text-fill: white;"/>
+                <ComboBox fx:id="comboUsuarios" prefWidth="150"/>
+
+                <Label text="Género:" style="-fx-text-fill: white;"/>
+                <ComboBox fx:id="comboGeneros" prefWidth="150"/>
+
+                <Label text="Desde:" style="-fx-text-fill: white;"/>
+                <DatePicker fx:id="dateDesde"/>
+
+                <Label text="Hasta:" style="-fx-text-fill: white;"/>
+                <DatePicker fx:id="dateHasta"/>
+
+                <Button text="Filtrar" onAction="#handleAplicarFiltros"/>
+                <Button text="Quitar Filtros" onAction="#handleQuitarFiltros"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <GridPane hgap="25" vgap="25" alignment="TOP_CENTER"
+                  style="-fx-padding: 30;">
+
+            <!-- PieChart -->
+            <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" spacing="10">
+                <Label text="Distribución por Género"
+                       style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;"/>
+                <PieChart fx:id="chartGeneros" prefWidth="400" prefHeight="350"/>
+            </VBox>
+
+            <!-- BarChart -->
+            <VBox GridPane.columnIndex="1" GridPane.rowIndex="0" spacing="10">
+                <Label text="Artistas más Escuchados"
+                       style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;"/>
+                <BarChart fx:id="chartArtistas" prefWidth="450" prefHeight="350">
+                    <xAxis>
+                        <CategoryAxis label="Artista"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Reproducciones"/>
+                    </yAxis>
+                </BarChart>
+            </VBox>
+
+            <!-- TOP Canciones -->
+            <VBox GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" spacing="10">
+                <Label text="Top Canciones"
+                       style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;"/>
+                <ListView fx:id="listaTopCanciones" prefHeight="200"/>
+            </VBox>
+
+        </GridPane>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" style="-fx-padding: 10 20;">
+            <Button text="🔙 Volver" onAction="#handleVolver"
+                    style="-fx-background-color: #1db954; -fx-text-fill: black;"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

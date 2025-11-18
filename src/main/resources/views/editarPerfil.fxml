@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.syncup.app.controllers.EditarPerfilController"
+      spacing="15"
+      alignment="CENTER"
+      styleClass="pane-perfil">
+
+    <Label text="Editar Perfil" styleClass="perfil-title"/>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="Nuevo nombre:" styleClass="label"/>
+        <TextField fx:id="txtNombre" styleClass="perfil-field"/>
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="Nueva contraseña:" styleClass="label"/>
+        <PasswordField fx:id="txtPassword" styleClass="perfil-field"/>
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="Confirmar contraseña:" styleClass="label"/>
+        <PasswordField fx:id="txtPassword2" styleClass="perfil-field"/>
+    </HBox>
+
+    <Button text="Guardar Cambios" styleClass="btn-perfil" onAction="#guardarCambios"/>
+
+</VBox>

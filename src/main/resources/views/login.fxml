@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:controller="com.syncup.app.controllers.LoginController"
+    xmlns:fx="http://javafx.com/fxml"
+    prefWidth="400" prefHeight="300">
+
+    <children>
+        <VBox alignment="CENTER" spacing="15" layoutX="50" layoutY="50" prefWidth="300">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20" />
+            </padding>
+
+            <Label text="🎧 Bienvenido a SyncUp" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+
+            <TextField fx:id="txtUsername" promptText="Usuario" prefWidth="200" />
+            <PasswordField fx:id="txtPassword" promptText="Contraseña" prefWidth="200" />
+
+            <Button text="Iniciar Sesión" onAction="#handleLogin" prefWidth="150" />
+
+            <Button text="Crear cuenta nueva" onAction="#handleRegistrar" prefWidth="150" />
+
+
+            <Label fx:id="lblMensaje" textFill="red" />
+        </VBox>
+    </children>
+</AnchorPane>
