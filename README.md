@@ -169,7 +169,8 @@ syncup/
 
 ## 👨‍💻 Autores
 
-- Juan Barrero - Desarrollo principal
+- Juan Barrero
+- Brayan Cordoba
 
 ## 📝 Licencia
 
